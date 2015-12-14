@@ -67,7 +67,7 @@ namespace My1_1
         TEST_METHOD(Part1)
         {
             std::string input;
-            std::ifstream inputStream("C:\\Users\\r00t\\Documents\\AdventOfCode\\AdventOfCode\\1_1\\input.txt");
+            std::ifstream inputStream("C:\\Users\\r00t\\Documents\\AdventOfCode\\AdventOfCode\\Part1\\input.txt");
             inputStream >> input;
             Assert::AreEqual(FindFloor(input), 232);
         }
@@ -85,7 +85,7 @@ namespace My1_1
         TEST_METHOD(Part2)
         {
             std::string input;
-            std::ifstream inputStream("C:\\Users\\r00t\\Documents\\AdventOfCode\\AdventOfCode\\1_1\\input.txt");
+            std::ifstream inputStream("C:\\Users\\r00t\\Documents\\AdventOfCode\\AdventOfCode\\Part1\\input.txt");
             inputStream >> input;
             Assert::AreEqual(FindBasement(input), 1783);
         }
