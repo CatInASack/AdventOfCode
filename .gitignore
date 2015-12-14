@@ -1,6 +1,7 @@
 **/Release/
 **/Debug/
 **/ipch/
+**/Generated Files/
 .vs/
 *.sdf
 *.opendb
