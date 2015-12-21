@@ -33,8 +33,8 @@ namespace Part4
             while (1)
             {
                 std::string candidateString = key + std::to_string(candidate);
-                Buffer^ buffer = ref new Buffer(candidateString.length());
-                buffer->Length = candidateString.length();
+                Buffer^ buffer = ref new Buffer((int)candidateString.length());
+                buffer->Length = (int)candidateString.length();
 
                 memcpy(BufferBytes(buffer), candidateString.c_str(), candidateString.length());
 

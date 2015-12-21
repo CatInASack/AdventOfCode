@@ -46,7 +46,7 @@ namespace Part3
                 ProcessMove(direction, santa, visited);
             }
 
-            return visited.size();
+            return (int)visited.size();
         }
 
         int CountHousesEx(const std::string& input)
@@ -64,7 +64,7 @@ namespace Part3
                 std::swap(activeSanta, reserveSanta);
             }
 
-            return visited.size();
+            return (int)visited.size();
         }
     public:
 
@@ -86,7 +86,7 @@ namespace Part3
         TEST_METHOD(Part1)
         {
             std::string input;
-            std::ifstream inputStream("C:\\Users\\r00t\\Documents\\AdventOfCode\\AdventOfCode\\Part3\\input.txt");
+            std::ifstream inputStream(SOLUTION_DIR "Part3\\input.txt");
             inputStream >> input;
             Assert::AreEqual(2565, CountHouses(input));
         }
@@ -109,7 +109,7 @@ namespace Part3
         TEST_METHOD(Part2)
         {
             std::string input;
-            std::ifstream inputStream("C:\\Users\\r00t\\Documents\\AdventOfCode\\AdventOfCode\\Part3\\input.txt");
+            std::ifstream inputStream(SOLUTION_DIR "Part3\\input.txt");
             inputStream >> input;
             Assert::AreEqual(2639, CountHousesEx(input));
         }

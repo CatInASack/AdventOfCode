@@ -78,6 +78,8 @@
 
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
 
+  <Import Project="$(SolutionDir)\AdditionalDefines.props" />
+
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
 

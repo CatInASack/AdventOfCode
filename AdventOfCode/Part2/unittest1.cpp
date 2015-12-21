@@ -64,7 +64,7 @@ namespace Part2
 
         TEST_METHOD(Part1)
         {
-            std::ifstream inputStream("C:\\Users\\r00t\\Documents\\AdventOfCode\\AdventOfCode\\Part2\\input.txt");
+            std::ifstream inputStream(SOLUTION_DIR "Part2\\input.txt");
 
             int paperNeeded = 0;
 
@@ -89,7 +89,7 @@ namespace Part2
 
         TEST_METHOD(Part2)
         {
-            std::ifstream inputStream("C:\\Users\\r00t\\Documents\\AdventOfCode\\AdventOfCode\\Part2\\input.txt");
+            std::ifstream inputStream(SOLUTION_DIR "Part2\\input.txt");
 
             int ribbonNeeded = 0;
 
