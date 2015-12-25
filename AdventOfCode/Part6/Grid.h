@@ -5,7 +5,23 @@
 
 namespace Part6
 {
-    template <size_t Size>
+    void Day1(int& value, Operation op, size_t x, size_t y)
+    {
+        switch (op)
+        {
+        case Operation::TurnOn:
+            value = 1;
+            break;
+        case Operation::TurnOff:
+            value = 0;
+            break;
+        case Operation::Toggle:
+            value = value ? 0 : 1;
+            break;
+        }
+    }
+
+    template <size_t Size, void(*UpdateFunc)(int&, Operation, size_t, size_t) = Day1>
     class Grid
     {
     public:
@@ -39,18 +55,7 @@ namespace Part6
         void UpdateElement(Operation op, size_t x, size_t y)
         {
             int& value = _elements[x][y];
-            switch (op)
-            {
-            case Operation::TurnOn:
-                value = 1;
-                break;
-            case Operation::TurnOff:
-                value = 0;
-                break;
-            case Operation::Toggle:
-                value = value ? 0 : 1;
-                break;
-            }
+            UpdateFunc(value, op, x, y);
         }
 
         void TurnOn(size_t x, size_t y)
