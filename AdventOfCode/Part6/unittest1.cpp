@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 #include "Grid.h"
 #include "Command.h"
+#include <fstream>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -12,13 +13,13 @@ namespace Microsoft {
             template<>
             static std::wstring ToString<std::pair<size_t, size_t>>(const std::pair<size_t, size_t>& point)
             {
-                return L"TODO - point";
+                return L"(" + std::to_wstring(point.first) + L", " + std::to_wstring(point.second) + L")";
             }
 
             template<>
-            static std::wstring ToString<::Part6::Operation>(const ::Part6::Operation& point)
+            static std::wstring ToString<::Part6::Operation>(const ::Part6::Operation& op)
             {
-                return L"TODO - operation";
+                return std::to_wstring((int)op);
             }
         }
     }
@@ -89,6 +90,46 @@ namespace Part6
             Assert::AreEqual(Operation::TurnOn, test.Operation());
             Assert::AreEqual(std::pair<size_t, size_t>(0, 0), test.Point1());
             Assert::AreEqual(std::pair<size_t, size_t>(999, 999), test.Point2());
+        }
+
+        TEST_METHOD(ParseToggleCommand)
+        {
+            Command test("toggle 0,0 through 999,0");
+            Assert::AreEqual(Operation::Toggle, test.Operation());
+            Assert::AreEqual(std::pair<size_t, size_t>(0, 0), test.Point1());
+            Assert::AreEqual(std::pair<size_t, size_t>(999, 0), test.Point2());
+        }
+
+        TEST_METHOD(ParseTurnOffCommand)
+        {
+            Command test("turn off 499,499 through 500,500");
+            Assert::AreEqual(Operation::TurnOff, test.Operation());
+            Assert::AreEqual(std::pair<size_t, size_t>(499, 499), test.Point1());
+            Assert::AreEqual(std::pair<size_t, size_t>(500, 500), test.Point2());
+        }
+
+        TEST_METHOD(TurnOn4LightsWithCommand)
+        {
+            Command testCmd("turn on 1,1 through 2,2");
+            Grid<3> testGrid;
+            testGrid.ApplyCommand(testCmd);
+            Assert::AreEqual(4, testGrid.CountOn());
+        }
+
+        TEST_METHOD(Part1)
+        {
+            std::ifstream inputStream(SOLUTION_DIR "Part6\\input.txt");
+
+            Grid<1000> grid;
+
+            std::string input;
+            while (std::getline(inputStream, input))
+            {
+                Command cmd(input);
+                grid.ApplyCommand(cmd);
+            }
+
+            Assert::AreEqual(569999, grid.CountOn());
         }
     };
 }

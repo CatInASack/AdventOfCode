@@ -1,14 +1,10 @@
 #pragma once
 
+#include "Operation.h"
+#include "Command.h"
+
 namespace Part6
 {
-    enum Operation
-    {
-        TurnOn,
-        TurnOff,
-        Toggle,
-    };
-
     template <size_t Size>
     class Grid
     {
@@ -20,6 +16,22 @@ namespace Part6
                 for (size_t row = 0; row < Size; row++)
                 {
                     _elements[col][row] = false;
+                }
+            }
+        }
+
+        void ApplyCommand(const Command& command)
+        {
+            size_t lowX = std::min(command.Point1().first, command.Point2().first);
+            size_t highX = std::max(command.Point1().first, command.Point2().first);
+            size_t lowY = std::min(command.Point1().second, command.Point2().second);
+            size_t highY = std::max(command.Point1().second, command.Point2().second);
+
+            for (size_t x = lowX; x <= highX; x++)
+            {
+                for (size_t y = lowY; y <= highY; y++)
+                {
+                    UpdateElement(command.Operation(), x, y);
                 }
             }
         }

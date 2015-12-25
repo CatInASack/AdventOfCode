@@ -1,17 +1,16 @@
 #pragma once
-#include "Grid.h"
+#include "Operation.h"
 #include <string>
+#include <map>
+#include <algorithm>
 
 namespace Part6
 {
     class Command
     {
     private:
-        std::string Through = " through ";
-        std::string TurnOnOp = "turn on";
-        std::string TurnOffOp = "turn off";
-        std::string ToggleOp = "toggle";
-
+        static const std::string Through;
+        static const std::map<std::string, Operation> OpMap;
     public:
         Command(const std::string& toParse)
         {
@@ -23,17 +22,10 @@ namespace Part6
             std::string op = opAndPt1.substr(0, opBreak);
             std::string pt1 = opAndPt1.substr(opBreak + 1);
 
-            if (op == TurnOnOp)
+            auto opIter = OpMap.find(op);
+            if (opIter != OpMap.end())
             {
-                _op = Operation::TurnOn;
-            }
-            else if (op == TurnOffOp)
-            {
-                _op = Operation::TurnOff;
-            }
-            else if (op == ToggleOp)
-            {
-                _op = Operation::Toggle;
+                _op = opIter->second;
             }
             else
             {
@@ -75,4 +67,14 @@ namespace Part6
         std::pair<size_t, size_t> _pt1;
         std::pair<size_t, size_t> _pt2;
     };
+
+    const std::string Command::Through = " through ";
+
+    const std::map<std::string, Operation> Command::OpMap =
+    {
+        { "turn on", Operation::TurnOn },
+        { "turn off", Operation::TurnOff },
+        { "toggle", Operation::Toggle },
+    };
+
 }
