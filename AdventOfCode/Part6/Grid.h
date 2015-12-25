@@ -21,6 +21,22 @@ namespace Part6
         }
     }
 
+    void Day2(int& value, Operation op, size_t x, size_t y)
+    {
+        switch (op)
+        {
+        case Operation::TurnOn:
+            value++;
+            break;
+        case Operation::TurnOff:
+            value = std::max(0, value - 1);
+            break;
+        case Operation::Toggle:
+            value += 2;
+            break;
+        }
+    }
+
     template <size_t Size, void(*UpdateFunc)(int&, Operation, size_t, size_t) = Day1>
     class Grid
     {
@@ -89,6 +105,21 @@ namespace Part6
 
             return on;
         }
+
+        int TotalBrightness() const
+        {
+            int brightness = 0;
+            for (size_t col = 0; col < Size; col++)
+            {
+                for (size_t row = 0; row < Size; row++)
+                {
+                    brightness += _elements[row][col];
+                }
+            }
+
+            return brightness;
+        }
+
     private:
         int _elements[Size][Size];
     };

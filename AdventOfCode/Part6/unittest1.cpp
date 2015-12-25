@@ -131,5 +131,21 @@ namespace Part6
 
             Assert::AreEqual(569999, spGrid->CountOn());
         }
+
+        TEST_METHOD(Part2)
+        {
+            std::ifstream inputStream(SOLUTION_DIR "Part6\\input.txt");
+
+            std::auto_ptr<Grid<1000, Day2>> spGrid(new Grid<1000, Day2>);
+
+            std::string input;
+            while (std::getline(inputStream, input))
+            {
+                Command cmd(input);
+                spGrid->ApplyCommand(cmd);
+            }
+
+            Assert::AreEqual(17836115, spGrid->TotalBrightness());
+        }
     };
 }
