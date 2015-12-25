@@ -15,7 +15,7 @@ namespace Part6
             {
                 for (size_t row = 0; row < Size; row++)
                 {
-                    _elements[col][row] = false;
+                    _elements[col][row] = 0;
                 }
             }
         }
@@ -38,17 +38,17 @@ namespace Part6
 
         void UpdateElement(Operation op, size_t x, size_t y)
         {
-            bool& value = _elements[x][y];
+            int& value = _elements[x][y];
             switch (op)
             {
             case Operation::TurnOn:
-                value = true;
+                value = 1;
                 break;
             case Operation::TurnOff:
-                value = false;
+                value = 0;
                 break;
             case Operation::Toggle:
-                value = !value;
+                value = value ? 0 : 1;
                 break;
             }
         }
@@ -75,7 +75,7 @@ namespace Part6
             {
                 for (size_t row = 0; row < Size; row++)
                 {
-                    if (_elements[row][col])
+                    if (_elements[row][col] > 0)
                     {
                         on++;
                     }
@@ -85,6 +85,6 @@ namespace Part6
             return on;
         }
     private:
-        bool _elements[Size][Size];
+        int _elements[Size][Size];
     };
 }

@@ -120,16 +120,16 @@ namespace Part6
         {
             std::ifstream inputStream(SOLUTION_DIR "Part6\\input.txt");
 
-            Grid<1000> grid;
+            std::auto_ptr<Grid<1000>> spGrid(new Grid<1000>);
 
             std::string input;
             while (std::getline(inputStream, input))
             {
                 Command cmd(input);
-                grid.ApplyCommand(cmd);
+                spGrid->ApplyCommand(cmd);
             }
 
-            Assert::AreEqual(569999, grid.CountOn());
+            Assert::AreEqual(569999, spGrid->CountOn());
         }
     };
 }
