@@ -18,6 +18,19 @@ namespace Part7
             return value;
         }
 
+        void override(const std::string& name, unsigned __int16 value)
+        {
+            std::shared_ptr<SignalCarrier> spOverrideValue(new Signal(value));
+            std::shared_ptr<SignalCarrier>& spWire = getByName(name);
+            spWire->connectInputA(spOverrideValue);
+
+            // All wires need to be recalculated, so the overridden value will propagate
+            for (std::pair<std::string, std::shared_ptr<SignalCarrier>> entry : _wires)
+            {
+                entry.second->recalculate();
+            }
+        }
+
         void Parse(const std::string& input)
         {
             size_t assignPos = input.find(AssignToken);

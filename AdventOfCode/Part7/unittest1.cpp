@@ -315,5 +315,39 @@ namespace Part7
             std::shared_ptr<SignalCarrier>& spWireA = registry.getByName("a");
             Assert::AreEqual((unsigned __int16)956, spWireA->value());
         }
+
+        TEST_METHOD(OverrideRedefinesValueToConstant)
+        {
+            WireRegistry registry;
+            registry.Parse("255 -> a");
+            registry.Parse("7 -> b");
+            registry.Parse("a AND b -> c");
+            registry.Parse("1 LSHIFT c -> d");
+            Assert::AreEqual((unsigned __int16)128, registry.getByName("d")->value());
+            registry.override("c", 3);
+            Assert::AreEqual((unsigned __int16)8, registry.getByName("d")->value());
+        }
+
+        TEST_METHOD(Part2)
+        {
+            std::ifstream inputStream(SOLUTION_DIR "Part7\\input.txt");
+
+            WireRegistry registry;
+
+            std::string input;
+            while (std::getline(inputStream, input))
+            {
+                registry.Parse(input);
+            }
+
+            std::shared_ptr<SignalCarrier>& spWireA = registry.getByName("a");
+            unsigned __int16 round1 = spWireA->value();
+            Assert::AreEqual((unsigned __int16)956, round1);
+
+            registry.override("b", round1);
+
+            unsigned __int16 round2 = spWireA->value();
+            Assert::AreEqual((unsigned __int16)40149, round2);
+        }
     };
 }

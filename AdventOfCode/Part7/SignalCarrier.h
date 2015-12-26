@@ -10,6 +10,7 @@ namespace Part7
     public:
         virtual unsigned __int16 value() = 0;
         virtual bool hasValue() const = 0;
+        virtual void recalculate() {}
         virtual void connectInputA(const std::shared_ptr<SignalCarrier>&)
         {
             throw std::logic_error("This element does not have an input A.");
@@ -60,6 +61,11 @@ namespace Part7
                 _cachedValue = _a->value();
             }
             return _cachedValue;
+        }
+
+        virtual void recalculate()
+        {
+            _cachedValue = -1;
         }
     private:
         __int32 _cachedValue;
