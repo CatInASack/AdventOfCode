@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
+#include <fstream>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -17,6 +18,10 @@ namespace Part8
                 {
                 case 'x':
                     removed += 3;
+                    break;
+                case '\\':
+                    removed += 1;
+                    ch = 0;
                     break;
                 default:
                     removed += 1;
@@ -50,6 +55,21 @@ namespace Part8
         TEST_METHOD(HexEscapedChar)
         {
             Assert::AreEqual(5, EscapeDiff("\"\\x27\""));
+        }
+
+        TEST_METHOD(Part1)
+        {
+            std::ifstream inputStream(SOLUTION_DIR "Part8\\input.txt");
+
+            int total = 0;
+
+            std::string input;
+            while (std::getline(inputStream, input))
+            {
+                total += EscapeDiff(input);
+            }
+
+            Assert::AreEqual(1350, total);
         }
     };
 }
