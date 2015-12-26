@@ -10,6 +10,14 @@ namespace Part7
     public:
         virtual unsigned __int16 value() const = 0;
         virtual bool hasValue() const = 0;
+        virtual void connectInputA(const std::shared_ptr<SignalCarrier>&)
+        {
+            throw std::logic_error("This element does not have an input A.");
+        }
+        virtual void connectInputB(const std::shared_ptr<SignalCarrier>&)
+        {
+            throw std::logic_error("This element does not have an input B.");
+        }
     };
 
     class Signal : public SignalCarrier
@@ -32,7 +40,7 @@ namespace Part7
             return _a && _a->hasValue();
         }
 
-        void connectInputA(const std::shared_ptr<SignalCarrier> input)
+        virtual void connectInputA(const std::shared_ptr<SignalCarrier>& input)
         {
             _a = input;
         }
@@ -68,7 +76,7 @@ namespace Part7
             return _a && _b && _a->hasValue() && _b->hasValue();
         }
 
-        void connectInputB(const std::shared_ptr<SignalCarrier> input)
+        virtual void connectInputB(const std::shared_ptr<SignalCarrier>& input)
         {
             _b = input;
         }
