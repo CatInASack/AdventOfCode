@@ -13,7 +13,7 @@ namespace Part7
             std::shared_ptr<SignalCarrier>& value = _wires[name];
             if (!value)
             {
-                value.reset(new Wire());
+                value.reset(new Wire(name));
             }
             return value;
         }

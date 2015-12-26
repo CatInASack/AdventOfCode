@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "WireRegistry.h"
+#include <fstream>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -33,14 +34,14 @@ namespace Part7
 
         TEST_METHOD(EmptyOneInputHasNoValue)
         {
-            std::shared_ptr<SignalCarrier> spTest(new Wire());
+            std::shared_ptr<SignalCarrier> spTest(new Wire("name"));
             Assert::IsFalse(spTest->hasValue());
         }
 
         TEST_METHOD(WireAttachedToSignalHasSignalsValue)
         {
             std::shared_ptr<SignalCarrier> spSignal(new Signal(42));
-            std::shared_ptr<SignalCarrier> spTest(new Wire());
+            std::shared_ptr<SignalCarrier> spTest(new Wire("name"));
             spTest->connectInputA(spSignal);
             Assert::IsTrue(spTest->hasValue());
             Assert::AreEqual((unsigned __int16)42, spTest->value());
@@ -297,6 +298,22 @@ namespace Part7
             Assert::AreEqual((unsigned __int16)65079, registry.getByName("i")->value());
             Assert::AreEqual((unsigned __int16)123, registry.getByName("x")->value());
             Assert::AreEqual((unsigned __int16)456, registry.getByName("y")->value());
+        }
+
+        TEST_METHOD(Part1)
+        {
+            std::ifstream inputStream(SOLUTION_DIR "Part7\\input.txt");
+
+            WireRegistry registry;
+
+            std::string input;
+            while (std::getline(inputStream, input))
+            {
+                registry.Parse(input);
+            }
+
+            std::shared_ptr<SignalCarrier>& spWireA = registry.getByName("a");
+            Assert::AreEqual((unsigned __int16)956, spWireA->value());
         }
     };
 }

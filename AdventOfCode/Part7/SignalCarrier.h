@@ -8,7 +8,7 @@ namespace Part7
     class SignalCarrier
     {
     public:
-        virtual unsigned __int16 value() const = 0;
+        virtual unsigned __int16 value() = 0;
         virtual bool hasValue() const = 0;
         virtual void connectInputA(const std::shared_ptr<SignalCarrier>&)
         {
@@ -24,7 +24,7 @@ namespace Part7
     {
     public:
         Signal(unsigned __int16 value) : _value(value) {}
-        virtual unsigned __int16 value() const { return _value; }
+        virtual unsigned __int16 value() { return _value; }
         virtual bool hasValue() const { return true; }
     private:
         unsigned __int16 _value;
@@ -33,7 +33,7 @@ namespace Part7
     class OneInput : public SignalCarrier
     {
     public:
-        virtual unsigned __int16 value() const = 0;
+        virtual unsigned __int16 value() = 0;
 
         virtual bool hasValue() const
         {
@@ -51,16 +51,25 @@ namespace Part7
     class Wire : public OneInput
     {
     public:
-        virtual unsigned __int16 value() const
+        Wire(const std::string& name) : _name(name), _cachedValue(-1) {}
+
+        virtual unsigned __int16 value()
         {
-            return _a->value();
+            if (_cachedValue < 0)
+            {
+                _cachedValue = _a->value();
+            }
+            return _cachedValue;
         }
+    private:
+        __int32 _cachedValue;
+        std::string _name;
     };
 
     class Not : public OneInput
     {
     public:
-        virtual unsigned __int16 value() const
+        virtual unsigned __int16 value()
         {
             return ~_a->value();
         }
@@ -69,7 +78,7 @@ namespace Part7
     class TwoInput : public OneInput
     {
     public:
-        virtual unsigned __int16 value() const = 0;
+        virtual unsigned __int16 value() = 0;
 
         virtual bool hasValue() const
         {
@@ -86,7 +95,8 @@ namespace Part7
 
     class And : public TwoInput
     {
-        virtual unsigned __int16 value() const
+    public:
+        virtual unsigned __int16 value()
         {
             return _a->value() & _b->value();
         }
@@ -94,7 +104,8 @@ namespace Part7
 
     class Or : public TwoInput
     {
-        virtual unsigned __int16 value() const
+    public:
+        virtual unsigned __int16 value()
         {
             return _a->value() | _b->value();
         }
@@ -102,7 +113,8 @@ namespace Part7
 
     class LShift : public TwoInput
     {
-        virtual unsigned __int16 value() const
+    public:
+        virtual unsigned __int16 value()
         {
             return _a->value() << _b->value();
         }
@@ -110,7 +122,8 @@ namespace Part7
 
     class RShift : public TwoInput
     {
-        virtual unsigned __int16 value() const
+    public:
+        virtual unsigned __int16 value()
         {
             return _a->value() >> _b->value();
         }
