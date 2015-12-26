@@ -33,6 +33,23 @@ namespace Part8
         return removed;
     }
 
+    int ReescapeDiff(const std::string& input)
+    {
+        int added = 2;
+        for (char ch : input)
+        {
+            switch (ch)
+            {
+            case '\\':
+            case '"':
+                added += 1;
+                break;
+            }
+        }
+
+        return added;
+    }
+
     TEST_CLASS(UnitTest1)
     {
     public:
@@ -70,6 +87,41 @@ namespace Part8
             }
 
             Assert::AreEqual(1350, total);
+        }
+
+        TEST_METHOD(EscEmptyString)
+        {
+            Assert::AreEqual(4, ReescapeDiff("\"\""));
+        }
+
+        TEST_METHOD(EscNoEscapes)
+        {
+            Assert::AreEqual(4, ReescapeDiff("\"abc\""));
+        }
+
+        TEST_METHOD(EscOneEscapedQuote)
+        {
+            Assert::AreEqual(6, ReescapeDiff("\"aaa\\\"aaa\""));
+        }
+
+        TEST_METHOD(EscHexEscapedChar)
+        {
+            Assert::AreEqual(5, ReescapeDiff("\"\\x27\""));
+        }
+
+        TEST_METHOD(Part2)
+        {
+            std::ifstream inputStream(SOLUTION_DIR "Part8\\input.txt");
+
+            int total = 0;
+
+            std::string input;
+            while (std::getline(inputStream, input))
+            {
+                total += ReescapeDiff(input);
+            }
+
+            Assert::AreEqual(2085, total);
         }
     };
 }
