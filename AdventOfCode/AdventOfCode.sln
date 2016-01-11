@@ -24,6 +24,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Part7", "Part7\Part7.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Part8", "Part8\Part8.vcxproj", "{78823B8B-3760-4754-961E-1680F205ED7A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Part9", "Part9\Part9.vcxproj", "{1D989484-62A4-4864-AEE1-207A6062EDA2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -122,6 +124,16 @@ Global
 		{78823B8B-3760-4754-961E-1680F205ED7A}.Release|x64.Build.0 = Release|x64
 		{78823B8B-3760-4754-961E-1680F205ED7A}.Release|x86.ActiveCfg = Release|Win32
 		{78823B8B-3760-4754-961E-1680F205ED7A}.Release|x86.Build.0 = Release|Win32
+		{1D989484-62A4-4864-AEE1-207A6062EDA2}.Debug|ARM.ActiveCfg = Debug|Win32
+		{1D989484-62A4-4864-AEE1-207A6062EDA2}.Debug|x64.ActiveCfg = Debug|x64
+		{1D989484-62A4-4864-AEE1-207A6062EDA2}.Debug|x64.Build.0 = Debug|x64
+		{1D989484-62A4-4864-AEE1-207A6062EDA2}.Debug|x86.ActiveCfg = Debug|Win32
+		{1D989484-62A4-4864-AEE1-207A6062EDA2}.Debug|x86.Build.0 = Debug|Win32
+		{1D989484-62A4-4864-AEE1-207A6062EDA2}.Release|ARM.ActiveCfg = Release|Win32
+		{1D989484-62A4-4864-AEE1-207A6062EDA2}.Release|x64.ActiveCfg = Release|x64
+		{1D989484-62A4-4864-AEE1-207A6062EDA2}.Release|x64.Build.0 = Release|x64
+		{1D989484-62A4-4864-AEE1-207A6062EDA2}.Release|x86.ActiveCfg = Release|Win32
+		{1D989484-62A4-4864-AEE1-207A6062EDA2}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
