@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 #include "Routes.h"
 #include "Salesman.h"
+#include <fstream>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -12,27 +13,27 @@ namespace Part9
     public:
         TEST_METHOD(MissingEdgesAreNegativeOneDistance)
         {
-            auto routes = Routes{};
+            auto routes = Routes();
             Assert::AreEqual(-1, routes.findDistance("London", "Dublin"));
         }
 
         TEST_METHOD(ParseEdge)
         {
-            auto routes = Routes{};
+            auto routes = Routes();
             routes.addRoute("London to Dublin = 464");
             Assert::AreEqual(464, routes.findDistance("London", "Dublin"));
         }
 
         TEST_METHOD(EdgesAreOrderInsensitive)
         {
-            auto routes = Routes{};
+            auto routes = Routes();
             routes.addRoute("London to Dublin = 464");
             Assert::AreEqual(464, routes.findDistance("Dublin", "London"));
         }
 
         TEST_METHOD(ParseMultipleEdges)
         {
-            auto routes = Routes{};
+            auto routes = Routes();
             routes.addRoute("London to Dublin = 464");
             routes.addRoute("London to Belfast = 518");
             routes.addRoute("Dublin to Belfast = 141");
@@ -43,7 +44,7 @@ namespace Part9
 
         TEST_METHOD(CanGetNamesOfAllCities)
         {
-            auto routes = Routes{};
+            auto routes = Routes();
             routes.addRoute("London to Dublin = 464");
             routes.addRoute("London to Belfast = 518");
             routes.addRoute("Dublin to Belfast = 141");
@@ -56,11 +57,26 @@ namespace Part9
 
         TEST_METHOD(ShortestTourOfSampleData)
         {
-            auto routes = Routes{};
+            auto routes = Routes();
             routes.addRoute("London to Dublin = 464");
             routes.addRoute("London to Belfast = 518");
             routes.addRoute("Dublin to Belfast = 141");
             Assert::AreEqual(605, tourCities(routes));
+        }
+
+        TEST_METHOD(Part1)
+        {
+            auto routes = Routes();
+
+            std::ifstream inputStream(SOLUTION_DIR "Part9\\input.txt");
+
+            std::string input;
+            while (std::getline(inputStream, input))
+            {
+                routes.addRoute(input);
+            }
+
+            Assert::AreEqual(251, tourCities(routes));
         }
     };
 }
