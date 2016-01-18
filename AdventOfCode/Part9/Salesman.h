@@ -58,7 +58,7 @@ namespace Part9
                 remainingCities.push_back(ii);
             }
 
-            return currentBest;
+            return (int)currentBest;
         }
     };
 }
