@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "Routes.h"
+#include "Salesman.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -51,6 +52,15 @@ namespace Part9
             Assert::AreEqual("Belfast", cities[0].c_str());
             Assert::AreEqual("Dublin", cities[1].c_str());
             Assert::AreEqual("London", cities[2].c_str());
+        }
+
+        TEST_METHOD(ShortestTourOfSampleData)
+        {
+            auto routes = Routes{};
+            routes.addRoute("London to Dublin = 464");
+            routes.addRoute("London to Belfast = 518");
+            routes.addRoute("Dublin to Belfast = 141");
+            Assert::AreEqual(605, tourCities(routes));
         }
     };
 }
