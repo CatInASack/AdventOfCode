@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "Routes.h"
+#include "RouteValue.h"
 #include "Salesman.h"
 #include <fstream>
 
@@ -61,7 +62,7 @@ namespace Part9
             routes.addRoute("London to Dublin = 464");
             routes.addRoute("London to Belfast = 518");
             routes.addRoute("Dublin to Belfast = 141");
-            Assert::AreEqual(605, tourCities(routes));
+            Assert::AreEqual(605, Salesman<>::tourCities(routes));
         }
 
         TEST_METHOD(Part1)
@@ -76,7 +77,7 @@ namespace Part9
                 routes.addRoute(input);
             }
 
-            Assert::AreEqual(251, tourCities(routes));
+            Assert::AreEqual(251, Salesman<>::tourCities(routes));
         }
     };
 }
