@@ -79,5 +79,20 @@ namespace Part9
 
             Assert::AreEqual(251, Salesman<>::tourCities(routes));
         }
+
+        TEST_METHOD(Part2)
+        {
+            auto routes = Routes();
+
+            std::ifstream inputStream(SOLUTION_DIR "Part9\\input.txt");
+
+            std::string input;
+            while (std::getline(inputStream, input))
+            {
+                routes.addRoute(input);
+            }
+
+            Assert::AreEqual(898, Salesman<RouteValue<std::greater<int>, false>, std::numeric_limits<int>::min()>::tourCities(routes));
+        }
     };
 }

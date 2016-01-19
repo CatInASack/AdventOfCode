@@ -8,18 +8,20 @@
 
 namespace Part9 
 {
-    template <class Ordering = std::less<int>, int defaultValue = std::numeric_limits<int>::max()>
+    template <class ValueType = RouteValue<std::less<int>, true>, int defaultValue = std::numeric_limits<int>::max()>
     class Salesman
     {
     private:
-        static void tourCities_impl(const Routes& routes, const std::vector<std::string>& cityNames, RouteValue<Ordering>& currentBest, RouteValue<Ordering> currentRun, size_t previousCity, const std::list<size_t>& remainingCities)
+        static void tourCities_impl(const Routes& routes, const std::vector<std::string>& cityNames, ValueType& currentBest, ValueType currentRun, size_t previousCity, const std::list<size_t>& remainingCities)
         {
             auto stillRemaining = remainingCities;
 
             for (auto nextCity : remainingCities)
             {
                 auto nextHop = routes.findDistance(cityNames[previousCity], cityNames[nextCity]);
-                if (nextHop < 0 || currentRun + nextHop >= currentBest)
+                auto candidate = currentRun + nextHop;
+
+                if (nextHop < 0 || currentBest.bounds(candidate))
                 {
                     continue;
                 }
@@ -28,7 +30,7 @@ namespace Part9
 
                 if (stillRemaining.empty())
                 {
-                    currentBest = currentRun + nextHop;
+                    currentBest = std::min(currentBest, candidate);
                 }
                 else
                 {
@@ -43,7 +45,7 @@ namespace Part9
         static int tourCities(const Routes& routes)
         {
             auto cityNames = routes.getCities();
-            auto currentBest = RouteValue<Ordering>(defaultValue);
+            auto currentBest = ValueType(defaultValue);
 
             auto remainingCities = std::list<size_t>();
             for (auto ii = size_t(0); ii < cityNames.size(); ii++)
